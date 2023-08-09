@@ -45,6 +45,10 @@ function ColorPickerApp() {
     [disabled, setColor],
   );
 
+  const handleRaiseError = useCallback(() => {
+    window?.parent.postMessage({ type: 'mfe.error', payload: { error: new Error('Demo error') } }, '*');
+  }, []);
+
   return (
     <div className="App">
       <HexColorPicker color={color} onChange={handleColorChange} />
@@ -53,6 +57,7 @@ function ColorPickerApp() {
 
       <div className="value">Current color is {color}</div>
       <div className="value">{disabled ? 'Disabled' : 'Enabled'}</div>
+      <button onClick={handleRaiseError}>Error</button>
     </div>
   );
 }
